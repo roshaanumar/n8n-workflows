@@ -1,0 +1,81 @@
+{
+  "name": "Data-into-CSV",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://learn.app.n8n.cloud/webhook/countries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        144,
+        0
+      ],
+      "id": "2b35fecd-4721-4282-97e0-0e868b632e0b",
+      "name": "GetCountries"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        336,
+        0
+      ],
+      "id": "603a2807-329e-47cb-9f53-d8f2f097d642",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        0
+      ],
+      "id": "be3ce58a-1d36-435f-830f-b6baa5627a29",
+      "name": "Manual Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "GetCountries": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "GetCountries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "0a76353a-7119-4c56-84df-adf2e9e60180",
+  "meta": {
+    "instanceId": "677225e0f00f89dcb21b1a84f80715b5bc90a87b83c2cf504ef515f292d415c4"
+  },
+  "nodeGroups": [],
+  "id": "gHVJOgpXJqg0fdlJ",
+  "tags": []
+}
