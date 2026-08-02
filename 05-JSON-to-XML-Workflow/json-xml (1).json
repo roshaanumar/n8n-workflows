@@ -1,0 +1,83 @@
+{
+  "name": "json-xml",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://pokeapi.co/api/v2/pokemon",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        192,
+        0
+      ],
+      "id": "a5418258-5778-4130-8f60-d83df4ffae40",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "mode": "jsonToxml",
+        "dataPropertyName": "results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        368,
+        0
+      ],
+      "id": "29276721-0c1d-49a6-81b0-648956e3cafb",
+      "name": "XML"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "50075094-15ef-46d6-b79e-5bd0bab078cf",
+      "name": "Manual Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "d6f539b9-95df-473e-b81a-24a2cee184c2",
+  "meta": {
+    "instanceId": "677225e0f00f89dcb21b1a84f80715b5bc90a87b83c2cf504ef515f292d415c4"
+  },
+  "nodeGroups": [],
+  "id": "q2UDh2DS7j7U1ZPH",
+  "tags": []
+}
