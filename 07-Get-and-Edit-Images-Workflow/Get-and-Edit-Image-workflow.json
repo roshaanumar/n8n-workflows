@@ -1,0 +1,108 @@
+{
+  "name": "Get-and-Edit-Image",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        0
+      ],
+      "id": "84fe174a-6fe8-48b6-8d3d-a196daf66506",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://learn.app.n8n.cloud/webhook/apis/dog-images",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2109b59d-9fe1-4f24-919a-a9ffd4fbc1bb",
+      "name": "GetDogURL"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "e85992a3-bb21-493c-ad4e-03bf3ab49f61",
+      "name": "GetDogImage"
+    },
+    {
+      "parameters": {
+        "operation": "rotate",
+        "rotate": 180,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "54a752ca-50c4-4af8-976d-493ac2e02aff",
+      "name": "Rotate180"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "GetDogURL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetDogURL": {
+      "main": [
+        [
+          {
+            "node": "GetDogImage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetDogImage": {
+      "main": [
+        [
+          {
+            "node": "Rotate180",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "03f9903b-1a24-4e11-a485-11e2c6df36e6",
+  "meta": {
+    "instanceId": "677225e0f00f89dcb21b1a84f80715b5bc90a87b83c2cf504ef515f292d415c4"
+  },
+  "nodeGroups": [],
+  "id": "CexxkrpvkdHfMz5T",
+  "tags": []
+}
