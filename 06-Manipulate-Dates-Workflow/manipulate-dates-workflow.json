@@ -1,0 +1,192 @@
+{
+  "name": "manipulate-dates",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "getAllPeople",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        0
+      ],
+      "id": "5885960b-035d-456a-bfa2-eeda961f625f",
+      "name": "GetCustomerData"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        0
+      ],
+      "id": "f2d4ddef-95b4-4a29-847a-b0ff86ebd805",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "roundDate",
+        "date": "={{ $json.created }}",
+        "mode": "roundUp",
+        "outputFieldName": "newDate",
+        "options": {
+          "includeInputFields": true
+        }
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -64,
+        0
+      ],
+      "id": "c0ceb4ec-7751-45ad-bd2f-817015382633",
+      "name": "RoundDate"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "06e6f6f8-38f1-4138-9d74-fb870c2b2502",
+              "leftValue": "={{ $json.created }}",
+              "rightValue": "1960-01-01T00:00:00",
+              "operator": {
+                "type": "dateTime",
+                "operation": "after"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        96,
+        0
+      ],
+      "id": "9a8341f4-d6ef-450e-ac91-dccf1b1681e6",
+      "name": "CheckAfter1960"
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $json.newDate }}",
+        "duration": 5,
+        "outputFieldName": "plus5Days",
+        "options": {
+          "includeInputFields": true
+        }
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        320,
+        -80
+      ],
+      "id": "9ad6aa51-2135-491e-bb89-5189ba0c3fa3",
+      "name": "Add5days"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "64dc970c-d001-4855-8932-0c2e9d48318d",
+              "name": "=newYear",
+              "value": "={{ $json.newDate.toDateTime().plus(20, 'years') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        304,
+        96
+      ],
+      "id": "d7633ece-7a8e-4bf5-879e-c1173e963991",
+      "name": "Add20Years"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "GetCustomerData",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetCustomerData": {
+      "main": [
+        [
+          {
+            "node": "RoundDate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RoundDate": {
+      "main": [
+        [
+          {
+            "node": "CheckAfter1960",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CheckAfter1960": {
+      "main": [
+        [
+          {
+            "node": "Add5days",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Add20Years",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "7ccb25dd-a0b0-44b1-a972-30e6b0fddab2",
+  "meta": {
+    "instanceId": "677225e0f00f89dcb21b1a84f80715b5bc90a87b83c2cf504ef515f292d415c4"
+  },
+  "nodeGroups": [],
+  "id": "XfrTOFZ4HjCPTDii",
+  "tags": []
+}
