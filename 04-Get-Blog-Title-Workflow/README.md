@@ -29,8 +29,8 @@ This n8n workflow sends an HTTP request to a blog webpage and extracts the blog 
 
 | File | Description |
 |------|-------------|
-| `get-blog-title-workflow.json` | Importable n8n workflow |
-| `get-blog-title-workflow.png` | Screenshot of the workflow |
+| `get-blog-title(1).json` | Importable n8n workflow |
+| `get-blog-title.png` | Screenshot of the workflow |
 
 ## Screenshot
 
