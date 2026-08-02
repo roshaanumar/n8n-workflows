@@ -1,0 +1,114 @@
+{
+  "name": "customer-summary",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        -16
+      ],
+      "id": "302b0162-fe73-4032-85c6-4ee54627bfe4",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "getAllPeople"
+      },
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -16
+      ],
+      "id": "68953988-4120-4fa4-a727-7aace56e0087",
+      "name": "GetCustomers"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { totalCustomers: $input.all().length } }]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        -16
+      ],
+      "id": "aeb4d6a5-eb16-42bc-b90f-84e53a4df7c5",
+      "name": "CountCustomers"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fa1b21f4-9762-438c-b4ba-71d9abbfe78e",
+              "name": "={{ $('GetCustomers').first().json.name }} is one of {{ $('CountCustomers').first().json.totalCustomers }} customers",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        432,
+        -16
+      ],
+      "id": "1bd19bee-b7d4-4ab6-8203-914a23107d47",
+      "name": "SetSummary"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "GetCustomers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetCustomers": {
+      "main": [
+        [
+          {
+            "node": "CountCustomers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CountCustomers": {
+      "main": [
+        [
+          {
+            "node": "SetSummary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "772d37f3-446c-4782-840a-5af8e160bbe0",
+  "meta": {
+    "instanceId": "677225e0f00f89dcb21b1a84f80715b5bc90a87b83c2cf504ef515f292d415c4"
+  },
+  "nodeGroups": [],
+  "id": "LLeTzdlZMozFGu1Y",
+  "tags": []
+}
