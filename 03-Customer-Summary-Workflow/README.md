@@ -35,4 +35,4 @@ This n8n workflow retrieves customer records, counts the total number of custome
 
 ## Screenshot
 
-![Workflow](customer-summary-workflow.png)
+![Workflow](customer-summary.png)
